@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+.vite/
+
+# Environment and local config
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# Model weights and large binary assets
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.h5
+*.pb
+
+# Images and generated media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.webp
+
+# Common dataset / generated asset folders
+public/train/
+public/train_landmarks/
+public/train_facemesh/
+my-react-app/public/train/
+my-react-app/public/train_landmarks/
+my-react-app/public/train_facemesh/
