@@ -9,13 +9,11 @@ label_map = {
     "fear":1,
     "joy":2,
     "Natural":3,
-    "sadness":4,
-    "surprise":5
 }
 def preprocess(landmarks):
     # -------- CENTER --------
-    ref = landmarks[0]  # nose
-    centered = [[x - ref[0], y - ref[1]] for x, y, z in landmarks]  # remove Z
+    ref = landmarks[0]
+    centered = [[x - ref[0], y - ref[1]] for x, y, z in landmarks]
 
     # -------- SCALE --------
     left_eye = centered[33]
@@ -28,7 +26,7 @@ def preprocess(landmarks):
     # -------- FLATTEN --------
     flat = []
     for point in scaled:
-        flat.extend(point)   # only x,y
+        flat.extend(point)
 
     x = torch.tensor(flat, dtype=torch.float32)
 
@@ -78,7 +76,7 @@ class MLP(nn.Module):
             nn.Linear(input_size,256),
             nn.BatchNorm1d(256),
             nn.ReLU(),
-            nn.Dropout(0.5),
+            nn.Dropout(0.3),
 
             nn.Linear(256,128),
             nn.ReLU(),
@@ -101,7 +99,7 @@ def train():
     model=MLP(input_size,num_classes)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(),lr=0.001,weight_decay=1e-4)
+    optimizer = torch.optim.AdamW(model.parameters(),lr=0.001,weight_decay=1e-3)
 
     train_size = int(0.8*len(dataset))
     val_size=len(dataset) - train_size
@@ -110,7 +108,7 @@ def train():
     train_loader = DataLoader(train_dataset,batch_size=32,shuffle=True)
     val_dataloader = DataLoader(val_dataset,shuffle=False,batch_size=32)
 
-    epochs=75
+    epochs=50
 
     for epoch in range(epochs):
         model.train()
